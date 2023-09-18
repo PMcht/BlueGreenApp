@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Departs from './pages/Departs';
 import Parcours from './pages/Parcours';
 import Profile from './pages/Profile';
-import Chat from './pages/Chat';
+import News from './pages/News';
 
 
 
@@ -24,7 +24,7 @@ export default function App() {
                 ),
               }} />
             <Tab.Screen name="Mes Départs" component={Departs} options={{
-                tabBarLabel: 'Mes Départs',
+                tabBarLabel: 'Réservations',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="bookmark" color={color} size={size} />
                 ),
@@ -35,10 +35,10 @@ export default function App() {
                   <MaterialCommunityIcons name="golf-tee" color={color} size={size} />
                 ),
               }} />
-            <Tab.Screen name="Chat" component={Chat} options={{
-                tabBarLabel: 'Chat',
+            <Tab.Screen name="Proshop" component={News} options={{
+                tabBarLabel: 'Proshop',
                 tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="chat" color={color} size={size} />
+                  <MaterialCommunityIcons name="shopping" color={color} size={size} />
                 ),
               }} />
             <Tab.Screen name="Profil" component={Profile} options={{
