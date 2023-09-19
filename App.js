@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <NavigationContainer >
-        <Tab.Navigator  initialRouteName="Home"  screenOptions={{headerShown: false, tabBarStyle: styles.navbar}}>
+        <Tab.Navigator  initialRouteName="Home"  screenOptions={{headerShown: false, tabBarStyle: styles.navbar, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
             <Tab.Screen name="Home" component={Home}  options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: ({ color, size }) => (

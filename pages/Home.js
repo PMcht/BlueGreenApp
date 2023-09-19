@@ -15,10 +15,10 @@ export default function Home() {
     <>
       <Header />
 
-      <Tab.Navigator screenOptions={{tabBarStyle: styles.topBar, tabBarIndicatorContainerStyle: styles.test}}>
+      <Tab.Navigator screenOptions={{tabBarStyle: styles.topBar, tabBarIndicatorContainerStyle: styles.test, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
         <Tab.Screen name="BlueGreen" component={BlueGreenActu} />
         <Tab.Screen name="Mes Amis" component={FriendsActu}  />
-        <Tab.Screen name="Mon Golf" component={MyGolfActu}  />
+        <Tab.Screen name="Mes Golfs" component={MyGolfActu}  />
       </Tab.Navigator>
     </>
 
