@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <Header />
 
-      <Tab.Navigator screenOptions={{tabBarStyle: styles.topBar, tabBarIndicatorContainerStyle: styles.test, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
+      <Tab.Navigator screenOptions={{tabBarStyle: styles.topBar, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
         <Tab.Screen name="BlueGreen" component={BlueGreenActu} />
         <Tab.Screen name="Mes Amis" component={FriendsActu}  />
         <Tab.Screen name="Mes Golfs" component={MyGolfActu}  />
@@ -30,9 +30,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   topBar: {
     height: 50,
+    marginTop: -10
   },
-  test: {
-    margin: 0,
-    padding: 0
-  },
+
 });
