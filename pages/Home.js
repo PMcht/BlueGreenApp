@@ -1,10 +1,10 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React, { Component } from "react";
-import { StyleSheet, Button, View, Text, Image } from "react-native";
+import { StyleSheet, Button, View, Text, Image, SafeAreaView } from "react-native";
 import BlueGreenActu from "./Home/BlueGreenActu";
 import FriendsActu from "./Home/FriendsActu";
-import Header from "../components/Header";
 import MyGolfActu from "./Home/MyGolfActu";
+import Header from "../components/Header";
 
 export default function Home() {
 
@@ -12,7 +12,8 @@ export default function Home() {
 
   return (
 
-    <>
+    <SafeAreaView style={{flex: 1}}>
+
       <Header />
 
       <Tab.Navigator screenOptions={{tabBarStyle: styles.topBar, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
@@ -20,7 +21,7 @@ export default function Home() {
         <Tab.Screen name="Mes Amis" component={FriendsActu}  />
         <Tab.Screen name="Mes Golfs" component={MyGolfActu}  />
       </Tab.Navigator>
-    </>
+    </SafeAreaView>
 
 
 

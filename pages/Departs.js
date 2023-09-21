@@ -1,19 +1,86 @@
 import React, { Component } from "react";
-import { Button, View, Text, StyleSheet, Image, ScrollView, SafeAreaView } from "react-native";
+import { Button, View, Text, StyleSheet, Image, ScrollView, SafeAreaView, TouchableOpacity, Easing } from "react-native";
 import Header from "../components/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TransitionSpecs, createStackNavigator, HeaderStyleInterpolators, CardStyleInterpolators } from "@react-navigation/stack";
+import Depart1 from "./Departs/Depart1";
+
+const Stack = createStackNavigator();
+
+const config = {
+  animation: 'timing',
+  config: {
+    duration: 200,
+    easing: Easing.linear,
+  }
+}
+
+const customTransition = {
+  gestureEnabled: true,
+  gestureDirection: 'horizontal',
+  transitionSpec: {
+    open: TransitionSpecs.TransitionIOSSpec,
+    close: TransitionSpecs.TransitionIOSSpec,
+  },
+  CardStyleInterpolators: ({ current, next, layouts }) => {
+    return {
+      cardStyle: {
+        transform: [
+          {
+            translateX: current.progress.interpolate({
+              inputRange: [0, 1],
+              outputRange: [layouts.screen.width, 0],
+            })
+          },
+        ]
+      },
+    }
+  }
+}
 
 export default function Departs() {
   return (
+
+    <Stack.Navigator initialRouteName={DepartHome} screenOptions={{gestureEnabled:true, gestureDirection:"horizontal"}}>
+      <Stack.Screen
+        name="DepartHome"
+        component={DepartHome}
+        options={{
+          headerShown:false,
+        }}
+      />
+      <Stack.Screen
+        name="Depart1"
+        component={Depart1}
+        options={{
+          headerShown:true,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          headerTitle:"Ma Réservation",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+    </Stack.Navigator>
+    
+  );
+}
+
+function DepartHome({navigation}) {
+  return (
+
     <SafeAreaView style={styles.container}>
+
     <ScrollView style={styles.scrollView}>
+
+    <Header />
+
     <View style={{  }}>
-
-      <Header />
       
-        <View style={ styles.flex } marginTop={50}>
+        <View style={ styles.flex } marginTop={20}>
 
-            <View style={ styles.card } >
+            <View style={ styles.card }>
                 <Image
                       style={styles.bg}
                       source={require('../assets/Booking/1.jpg')}
@@ -53,62 +120,64 @@ export default function Departs() {
 
         <Text style={styles.headTitle}>Mes Rendez-Vous</Text>
 
-        <View style={ styles.rdv }>
+        
+              <TouchableOpacity style={ styles.rdv } onPress={() => navigation.navigate('Depart1', { with: ['Aymeric', 'Valentin', 'Ben'], date: '29 Sept.', date2: '14h00', confirm: 'Confirmé', golf: 'Baden', address: 'Baden, Bretagne', hdc: '10', par: '71' })}>
 
-          <View style={ styles.rdv.text }>
-              <Text style={ styles.rdv.text.date }>29 Sept.</Text>
-              <Text style={ styles.rdv.text.date2 }>Jeudi à 14h00</Text>
-              <Text style={ styles.rdv.text.confirm }>Confirmé</Text>
-          </View>
+                <View style={ styles.rdv.text }>
+                    <Text style={ styles.rdv.text.date }>29 Sept.</Text>
+                    <Text style={ styles.rdv.text.date2 }>Jeudi à 14h00</Text>
+                    <Text style={ styles.rdv.text.confirm }>Confirmé</Text>
+                </View>
 
-          <View style={ styles.rdv.text2 }>
-              <Text style={ styles.rdv.text2.golf }>Golf de Baden</Text>
-              <Text style={ styles.rdv.text2.with }>avec Valentin, Aymeric et Ben</Text>
-          </View>
+                <View style={ styles.rdv.text2 }>
+                    <Text style={ styles.rdv.text2.golf }>Golf de Baden</Text>
+                    <Text style={ styles.rdv.text2.with }>avec Valentin, Aymeric et Ben</Text>
+                </View>
 
-          <View style={ styles.rdv.text3 }>
-            <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
-          </View>
+                <View style={ styles.rdv.text3 }>
+                  <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
+                </View>
 
-        </View>
+              </TouchableOpacity>
 
-        <View style={ styles.rdv }>
+              <TouchableOpacity style={ styles.rdv } onPress={() => navigation.navigate('Depart1', { with: ['Arnaud'], date: '10 Oct.', date2: '14h20', confirm: 'Non Confirmé', golf: 'Baden', address: 'Baden, Bretagne', hdc: '10', par: '71' })}>
 
-          <View style={ styles.rdv.text }>
-              <Text style={ styles.rdv.text.date }>10 Oct.</Text>
-              <Text style={ styles.rdv.text.date2 }>Mardi à 14h20</Text>
-              <Text style={ styles.rdv.text.confirmNot }>à Confirmer</Text>
-          </View>
+                <View style={ styles.rdv.text }>
+                    <Text style={ styles.rdv.text.date }>10 Oct.</Text>
+                    <Text style={ styles.rdv.text.date2 }>Mardi à 14h20</Text>
+                    <Text style={ styles.rdv.text.confirmNot }>Non Confirmé</Text>
+                </View>
 
-          <View style={ styles.rdv.text2 }>
-              <Text style={ styles.rdv.text2.golf }>Golf de Baden</Text>
-              <Text style={ styles.rdv.text2.with }>Cours avec Arnaud</Text>
-          </View>
+                <View style={ styles.rdv.text2 }>
+                    <Text style={ styles.rdv.text2.golf }>Golf de Baden</Text>
+                    <Text style={ styles.rdv.text2.with }>Cours avec Arnaud</Text>
+                </View>
 
-          <View style={ styles.rdv.text3 }>
-            <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
-          </View>
+                <View style={ styles.rdv.text3 }>
+                  <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
+                </View>
 
-        </View>
+              </TouchableOpacity>
 
-        <View style={ styles.rdv }>
+              <TouchableOpacity style={ styles.rdv } onPress={() => navigation.navigate('Depart1', { with: ['Corentin'], date: '15 Oct.', date2: '15h50', confirm: 'Non Confirmé', golf: 'Saint Laurent', address: 'Ploemel, Bretagne', hdc: '10', par: '75' })}>
 
-          <View style={ styles.rdv.text }>
-              <Text style={ styles.rdv.text.date }>15 Oct.</Text>
-              <Text style={ styles.rdv.text.date2 }>Jeudi à 15h50</Text>
-              <Text style={ styles.rdv.text.confirmNot }>à Confirmer</Text>
-          </View>
+                <View style={ styles.rdv.text }>
+                    <Text style={ styles.rdv.text.date }>15 Oct.</Text>
+                    <Text style={ styles.rdv.text.date2 }>Jeudi à 15h50</Text>
+                    <Text style={ styles.rdv.text.confirmNot }>Non Confirmé</Text>
+                </View>
 
-          <View style={ styles.rdv.text2 }>
-              <Text style={ styles.rdv.text2.golf }>Golf de St Laurent</Text>
-              <Text style={ styles.rdv.text2.with }>avec Corentin</Text>
-          </View>
+                <View style={ styles.rdv.text2 }>
+                    <Text style={ styles.rdv.text2.golf }>Golf de St Laurent</Text>
+                    <Text style={ styles.rdv.text2.with }>avec Corentin</Text>
+                </View>
 
-          <View style={ styles.rdv.text3 }>
-            <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
-          </View>
+                <View style={ styles.rdv.text3 }>
+                  <MaterialCommunityIcons name="arrow-top-right-thin-circle-outline" size={30} color="grey" />
+                </View>
 
-        </View>
+              </TouchableOpacity>
+
 
       </View>
     </ScrollView>
@@ -122,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: 'center',
     flexDirection: "row",
-    width: 400,
+    width: '100%',
     height: 100,
     borderTopWidth: 1,
     borderColor: "gray",

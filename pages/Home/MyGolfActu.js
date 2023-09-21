@@ -106,19 +106,18 @@ mainContainer: {
   alignItems: "center", 
   justifyContent: "center",
   flexDirection: "column",
+  backgroundColor: "#fff"
 },
 card: {
   marginVertical: 5,
-  padding: 15,
-  width: 390,
+  paddingHorizontal: "2.5%",
+  paddingVertical: 30,
+  width: '95%',
   minHeight: 100,
   backgroundColor: "#fff",
   borderRadius: 10,
-  shadowOffset: {width: -2, height: 4},
-  shadowOpacity: 0.2,
-  shadowRadius: 3,
-  elevation: 20,
-  shadowColor: '#171717'
+  borderBottomWidth: 1,
+  borderColor: "#e9ebf0"
 },
 cardHeader: {
   display: "flex",
@@ -144,7 +143,7 @@ title: {
   paddingVertical: 10
 },
 img: {
-  width: 360,
+  width: "100%",
   height: 160,
 },
 comm: {
