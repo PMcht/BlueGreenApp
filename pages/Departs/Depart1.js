@@ -65,7 +65,7 @@ export default function Depart1({navigation, route}) {
                   />
                   <View>
                     <Text style={styles.bold}>{person}</Text>
-                    <View style={[styles.flex, {alignItems: "center"}]}>
+                    <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
                       <Text style={styles.index}>Jaune</Text>
                       <Text style={styles.handicap}>20</Text>
                     </View>
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   index: {
-    backgroundColor: "yellow",
-    paddingHorizontal: 5,
-    paddingVertical: 2,
+    backgroundColor: "#e8e81e",
+    paddingHorizontal: 10,
+    paddingVertical: 3,
     borderRadius: 100,
     marginRight: 10
   },

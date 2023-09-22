@@ -4,6 +4,11 @@ import Header from "../components/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TransitionSpecs, createStackNavigator, HeaderStyleInterpolators, CardStyleInterpolators } from "@react-navigation/stack";
 import Depart1 from "./Departs/Depart1";
+import { DepartResa } from "./Departs/DepartResa";
+import { CoursResa } from "./Departs/CoursResa";
+import { FittingResa } from "./Departs/FittingResa";
+import { CompetResa } from "./Departs/CompetResa";
+
 
 const Stack = createStackNavigator();
 
@@ -62,6 +67,59 @@ export default function Departs() {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
+      <Stack.Screen
+        name="DepartResa"
+        component={DepartResa}
+        gestureEnabled={false}
+        options={{
+          headerShown:true,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          headerTitle:"Nouveau Départ",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <Stack.Screen
+        name="CoursResa"
+        component={CoursResa}
+        options={{
+          headerShown:true,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          headerTitle:"Réserver un cours",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <Stack.Screen
+        name="FittingResa"
+        component={FittingResa}
+        options={{
+          headerShown:true,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          headerTitle:"Réserver un fitting",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <Stack.Screen
+        name="CompetResa"
+        component={CompetResa}
+        options={{
+          headerShown:true,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          headerTitle:"S'inscrire à une compétition",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
     </Stack.Navigator>
     
   );
@@ -80,41 +138,41 @@ function DepartHome({navigation}) {
       
         <View style={ styles.flex } marginTop={20}>
 
-            <View style={ styles.card }>
+            <TouchableOpacity style={ styles.card } onPress={() => navigation.navigate('DepartResa')}>
                 <Image
                       style={styles.bg}
                       source={require('../assets/Booking/1.jpg')}
                       resizeMode="contain"
                     />
                 <Text style={styles.desc}>Un Départ</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={ styles.card }>
+            <TouchableOpacity style={ styles.card } onPress={() => navigation.navigate('CoursResa')}>
                 <Image
                       style={styles.bg}
                       source={require('../assets/Booking/3.jpg')}
                       resizeMode="contain"
                     />
                 <Text style={styles.desc}>Un Cours</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={ styles.card }>
+            <TouchableOpacity style={ styles.card } onPress={() => navigation.navigate('FittingResa')}>
                 <Image
                       style={styles.bg}
                       source={require('../assets/Booking/4.jpg')}
                       resizeMode="contain"
                     />
                 <Text style={styles.desc}>Une Séance de fitting</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={ styles.card }>
+            <TouchableOpacity style={ styles.card } onPress={() => navigation.navigate('CompetResa')}>
                   <Image
                       style={styles.bg}
                       source={require('../assets/Booking/2.jpg')}
                       resizeMode="contain"
                     />
                 <Text style={styles.desc}>Une Compétition</Text>
-            </View>
+            </TouchableOpacity>
 
         </View>
 
