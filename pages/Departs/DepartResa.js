@@ -29,8 +29,6 @@ export const DepartResa = () => {
   const slidesRef = useRef(null)
   const {height, width, scale, fontScale} = useWindowDimensions();
 
-  const scrollX = useRef(new Animated.Value(0)).current;
-
   const scrollTo = () => {
     if (currentIndex < slides.length -1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 })
@@ -51,9 +49,6 @@ export const DepartResa = () => {
         pagingEnabled
         bounces={false}
         keyExtractor={(item) => item.id}
-        onScroll= { Animated.event ([{ nativeEvent: {contentOffset: { x: scrollX}} }], {
-          useNativeDriver: false,
-        })}
         scrollEventThrottle={32}
         ref={slidesRef}
         />

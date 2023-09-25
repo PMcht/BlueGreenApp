@@ -8,7 +8,7 @@ export default function Depart1({navigation, route}) {
 
   return (
     <ScrollView style={styles.scrollView}>
-    <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20}}>
+    <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20, backgroundColor: "#fff"}}>
 
         <View style={[styles.course, styles.line]}>
             <Text style={[styles.bold, {marginBottom: 20}]}>
@@ -67,7 +67,7 @@ export default function Depart1({navigation, route}) {
                     <Text style={styles.bold}>{person}</Text>
                     <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
                       <Text style={styles.index}>Jaune</Text>
-                      <Text style={styles.handicap}>20</Text>
+                      <Text style={styles.handicap}> index: 20</Text>
                     </View>
                     
                   </View>

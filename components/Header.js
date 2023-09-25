@@ -12,10 +12,6 @@ export default function Header() {
         source={require('../assets/Logos/logo.png')}
         resizeMode="contain"
       />
-      <View style={styles.rightSide}>
-        <MaterialIcons name="search" style={styles.rightSide.icons} />
-        <MaterialCommunityIcons name="bell-outline" style={styles.rightSide.icons} />
-      </View>
     </View>
 
 
@@ -25,15 +21,14 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     header: {
-
         paddingBottom: 10,
         backgroundColor: 'white',
         height: 60,
         paddingHorizontal: 20,
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems:'center',
     },
     tinyLogo: {
         maxHeight: 50,
