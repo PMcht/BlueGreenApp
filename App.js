@@ -7,6 +7,7 @@ import Departs from './pages/Departs';
 import Parcours from './pages/Parcours';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import Proshop from './pages/Proshop';
 
 
 
@@ -16,27 +17,16 @@ export default function App() {
   const {height, width, scale, fontScale} = useWindowDimensions();
 
   return (
+
     <SafeAreaView style={{flex: 1, paddingTop: Platform.OS === "android" ? StatusBar.currentHeight +20 : 0, maxWidth: width}}>
 
       <NavigationContainer>
 
-          <Tab.Navigator  initialRouteName="Home"  screenOptions={{headerShown: false, tabBarStyle: styles.navbar, tabBarActiveTintColor: '#007aff', tabBarInactiveTintColor: 'gray'}}>
+          <Tab.Navigator  initialRouteName="Home"  screenOptions={{headerShown: false, tabBarStyle: styles.navbar, tabBarActiveTintColor: '#2ba9bc', tabBarInactiveTintColor: 'gray'}}>
               <Tab.Screen name="Home" component={Home}  options={{
                   tabBarLabel: 'Home',
                   tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="home" color={color} size={size} />
-                  ),
-                }} />
-              <Tab.Screen name="Mes Départs" component={Departs} options={{
-                  tabBarLabel: 'Réservations',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="bookmark" color={color} size={size} />
-                  ),
-                }} />
-              <Tab.Screen name="Parcours" component={Parcours} options={{
-                  tabBarLabel: 'Parcours',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="golf-tee" color={color} size={size}  />
                   ),
                 }} />
               <Tab.Screen name="Actus" component={Actus} options={{
@@ -45,10 +35,22 @@ export default function App() {
                     <MaterialCommunityIcons name="newspaper" color={color} size={size} />
                   ),
                 }} />
-              <Tab.Screen name="Menu" component={Profile} options={{
-                  tabBarLabel: 'Menu',
+              <Tab.Screen name="Parcours" component={Parcours} options={{
+                  tabBarLabel: () => null,
                   tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="menu" color={color} size={size} />
+                    <MaterialCommunityIcons name="golf-tee" color={color} style={styles.middle} size={size}  />
+                  ),
+                }} />
+              <Tab.Screen name="Mes DépartsProshop" component={Proshop} options={{
+                  tabBarLabel: 'Proshop',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="shopping" color={color} size={size} />
+                  ),
+                }} />
+              <Tab.Screen name="Profil" component={Profile} options={{
+                  tabBarLabel: 'Profil',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="account" color={color} size={size} />
                   ),
                 }} />
           </Tab.Navigator>
@@ -63,4 +65,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10, 
     paddingTop: 10,
   },
+  middle:{
+    backgroundColor: '#2ba9bc',
+    padding: 8,
+    display: "flex",
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    color: "#fff",
+    fontSize: 30,
+    marginTop: -10
+  }
 });

@@ -3,11 +3,12 @@ import { Button, View, Text, StyleSheet, Image, ScrollView, SafeAreaView, Toucha
 import Header from "../components/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TransitionSpecs, createStackNavigator, HeaderStyleInterpolators, CardStyleInterpolators } from "@react-navigation/stack";
-import Depart1 from "./Departs/Depart1";
-import { DepartResa } from "./Departs/DepartResa";
-import { CoursResa } from "./Departs/CoursResa";
-import { PracticeResa } from "./Departs/PracticeResa";
-import { CompetResa } from "./Departs/CompetResa";
+import Depart1 from "./Home/Depart1";
+import { DepartResa } from "./Home/DepartResa";
+import { CoursResa } from "./Home/CoursResa";
+import { PracticeResa } from "./Home/PracticeResa";
+import { CompetResa } from "./Home/CompetResa";
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const Stack = createStackNavigator();
@@ -24,28 +25,28 @@ const slides = [
   {
     id: 0,
     title: 'Réserver un départ',
-    img: require('../assets/Booking/1.jpg'),
+    img: require('../assets/Booking/1.png'),
     link: 'DepartResa',
     desc: 'Un parcours seul ou à plusieurs'
   },
   {
     id: 1,
     title: 'Prendre un cours',
-    img: require('../assets/Booking/3.jpg'),
+    img: require('../assets/Booking/3.png'),
     link: 'CoursResa',
     desc: 'S\'améliorer en continu'
   },
   {
     id: 2,
     title: 'Recharges de practice',
-    img: require('../assets/Booking/2.jpg'),
+    img: require('../assets/Booking/2.png'),
     link: 'PracticeResa',
     desc: 'Car l\'entrainement est important'
   },
   {
     id: 3,
     title: 'Inscription compétition',
-    img: require('../assets/Booking/4.jpg'),
+    img: require('../assets/Booking/4.png'),
     link: 'CompetResa',
     desc: 'Pour se tester et gagner'
   },
@@ -148,35 +149,29 @@ function DepartHome({navigation}) {
 
     <View style={{ backgroundColor: "#fff", paddingBottom: 70 }}>
 
-        <FlatList
-            data={slides}
-            renderItem={({ item }) =>  
-              <TouchableOpacity activeOpacity={1} style={ [styles.card, {width: (width - 50)}] } onPress={() => navigation.navigate(item.link)}>
-                  <View style={[styles.cardBG]}>
-                    <ImageBackground
-                      style={styles.cardIMG}
+      <View style={[styles.containerResa]}>
+
+      {slides.map((item) => {
+
+              return (
+            <TouchableOpacity key={item.id} style={ [styles.card] } onPress={() => navigation.navigate(item.link)}>
+
+                <Image
+                      style={styles.icon}
                       source={item.img}
                       resizeMode="cover"
                     />
+                <Text style={styles.cardTxt}>
+                    {item.title}
+                </Text>
+                
+            </TouchableOpacity>
+              )
+            })}
 
-                    <View style={styles.cardTxt}>
-                      <Text style={styles.boldDesc}>
-                        {item.title}
-                      </Text>
-                      <Text style={styles.thinDesc}>
-                        {item.desc}
-                      </Text>
-                    </View>
-                  </View>
-              </TouchableOpacity>}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            snapToInterval={width -50}
-            bounces={false}
-            keyExtractor={(item) => item.id}
-            disableIntervalMomentum
-            />
+      </View>
+
+
 
         <View style={styles.departs}>
 
@@ -219,7 +214,7 @@ function DepartHome({navigation}) {
                       <View style={styles.info}>
                           <Image
                             style={styles.pic}
-                            source={require('../assets/Booking/Resa/Persons/Aymeric.jpg')}
+                            source={require('../assets/Booking/Resa/Persons/Arnaud.jpg')}
                             resizeMode="cover"
                           />
                           <View style={styles.textInfo}>
@@ -264,6 +259,43 @@ function DepartHome({navigation}) {
 
 const styles = StyleSheet.create({  
 
+  card: {
+    width: 170,
+    height: 170,
+    borderRadius: 20,
+    padding: 5,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowOffset: {width: -2, height: 4},  
+    shadowColor: '#171717',  
+    shadowOpacity: 0.2,  
+    elevation: 5,
+    shadowRadius: 3,
+    backgroundColor: "#fff"
+  },
+  containerResa: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
+    marginTop: 5,
+    width: '100%',
+    height: 'auto',
+  },
+  cardTxt: {
+    color: 'gray'
+  },
+  icon: {
+    width: 70,
+    height: 70,
+    marginBottom: 10
+  },
+
+
+
   rdv: {
     display: "flex",
     justifyContent: "center",
@@ -271,7 +303,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: '100%',
     paddingVertical: 10,
-    height: 150,
+    height: 160,
     paddingHorizontal: 35
   },
   appointment: {
@@ -333,48 +365,5 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 20,
   },
-  card: {
-    height: 300,
-    padding: "5%"
-  },
-  cardBG: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-    position: "relative",
-    overflow: 'hidden'
-  },
-  cardIMG: {
-    position: "absolute",
-    height: "100%",
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    width: 400
-  },
-  cardTxt: {
-    height: "30%",
-    width: '100%',
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    position: "absolute",
-    bottom: 0
-  },
-  boldDesc: {
-    fontSize: 26,
-    fontWeight: '600',
-  },
-  thinDesc: {
-    fontSize: 15,
-    fontWeight: '400',
-  }
 
 });

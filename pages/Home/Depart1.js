@@ -41,12 +41,18 @@ export default function Depart1({navigation, route}) {
         </Text>
 
         <View style={[styles.players, styles.line]}>
-            <Text style={[styles.bold]}>
-              Partenaires
-            </Text>
-            <Text style={[styles.thin, {marginBottom: 20}]}>
-              Jusqu'à 4 joueurs
-            </Text>
+          <View style={styles.playersTitle}>
+            <View>
+                <Text style={[styles.bold]}>
+                  Partenaires
+                </Text>
+                <Text style={[styles.thin]}>
+                  Jusqu'à 4 joueurs
+                </Text>
+            </View>
+            <Text style={styles.addPlayer}>Ajouter un joueur</Text>
+          </View>
+
 
             {withArr.map((person) => {
               const test = `../../assets/Booking/Resa/Persons/` + `${person}` + `.jpg`;
@@ -55,6 +61,7 @@ export default function Depart1({navigation, route}) {
                 'Aymeric' : require('../../assets/Booking/Resa/Persons/Aymeric.jpg'),
                 'Corentin' : require('../../assets/Booking/Resa/Persons/Corentin.jpg'),
                 'Ben' : require('../../assets/Booking/Resa/Persons/Ben.jpg'),
+                'Arnaud' : require('../../assets/Booking/Resa/Persons/Arnaud.jpg'),
               }
               return (
                 <View key={person} style={[styles.flex, styles.person]}>
@@ -81,8 +88,9 @@ export default function Depart1({navigation, route}) {
 
         <View style={styles.modif}>
 
-          <Pressable style={[styles.buttons, {backgroundColor: "#4287f5"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
-          <Pressable style={[styles.buttons, {backgroundColor: "#f52c62"}]} ><Text style={[styles.bold,{color: "#fff"}]}>Annuler</Text></Pressable>
+            <Pressable style={[styles.buttons, {backgroundColor: "#2ba9bc"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
+            <Text>ou</Text>
+            <Pressable style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
 
         </View>
 
@@ -135,6 +143,19 @@ const styles = StyleSheet.create({
   players: {
     paddingTop: 20,
   },
+
+  playersTitle:{
+    display: "flex",
+    alignItems: 'flex-start',
+    justifyContent:'space-between',
+    flexDirection: 'row',
+    marginBottom: 20
+  },
+  addPlayer: {
+    marginTop: 10,
+    color: '#2ba9bc'
+  },
+
   person: {
     marginBottom: 10,
     position: 'relative'
@@ -146,7 +167,9 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   index: {
-    backgroundColor: "#e8e81e",
+    backgroundColor: "#ffc800",
+    color: "#fff",
+    fontWeight: 'bold',
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 100,
