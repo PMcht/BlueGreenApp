@@ -146,7 +146,9 @@ export function HomeNext({navigation}) {
 
         <Header />
 
-        <ScrollView style={[styles.container]}>
+        <ScrollView >
+
+          <View style={[styles.container]}>
 
           <View style={styles.welcome}>
             <View>
@@ -197,7 +199,7 @@ export function HomeNext({navigation}) {
                         data={departsList}
                         renderItem={({ item }) => 
                       
-                        <TouchableOpacity style={[styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('Depart1', { with: item.with, date: item.date, date2: item.hour, confirm: 'Confirmé', golf: item.golfName, address: item.golfAddress, hdc: '10', par: '71' })}>
+                        <TouchableOpacity activeOpacity={1} style={[styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('Depart1', { with: item.with, type: item.type, date: item.date, date2: item.hour, confirm: 'Confirmé', golf: item.golfName, address: item.golfAddress, hdc: '10', par: '71' })}>
                             <Image
                               style={styles.bgEvent}
                               source={item.golfIMG}
@@ -206,7 +208,7 @@ export function HomeNext({navigation}) {
                             <LinearGradient style={styles.bgLinear} colors={['rgba(19, 19, 20, 0)', 'rgba(19, 19, 20, 0.6)', 'rgba(19, 19, 20, 0.8)']}>
                                 <View>
                                     <Text style={styles.boldNext}>Golf de {item.golfName}</Text>
-                                    <Text style={styles.thinNext}>Départ à {item.hour}</Text>
+                                    <Text style={styles.thinNext}>{item.type} à {item.hour}</Text>
                                 </View>
                                 <Text style={styles.button}>Plus d'infos</Text>
                             </LinearGradient>
@@ -217,16 +219,18 @@ export function HomeNext({navigation}) {
                         showsHorizontalScrollIndicator ={false}
                         pagingEnabled
                         snapToInterval={(330)}
-                        decelerationRate={0}
-                        bounces={false}
+                        decelerationRate={0.0}
+                        disableIntervalMomentum={ true }
                         keyExtractor={(item) => item.id}
-                        scrollEventThrottle={32}
+                        scrollEventThrottle={1}
                         />
 
               </View>
 
 
           </View>
+
+          <Text style={[styles.bold, { marginTop: 35, marginBottom: 20}]}>Réserver un évènement</Text>
 
 
           <View style={styles.book}>
@@ -262,7 +266,7 @@ export function HomeNext({navigation}) {
 
           </View>
 
-
+          </View>
         </ScrollView>
     </SafeAreaView>
   )
@@ -271,6 +275,7 @@ export function HomeNext({navigation}) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
+        paddingBottom: 100
     },
     welcome: {
       display: "flex",
@@ -385,7 +390,6 @@ const styles = StyleSheet.create({
 
 
     book: {
-      marginTop: 45,
       width: '100%',
       display: "flex",
       justifyContent: 'center',
@@ -408,7 +412,7 @@ const styles = StyleSheet.create({
       display: "flex",
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#2ba9bc'
+      backgroundColor: 'rgba(37, 150, 190, 0.5)'
     },
     bookingBottom: {
       width: '100%',

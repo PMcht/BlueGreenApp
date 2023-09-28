@@ -2,6 +2,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, View, Text, StyleSheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase } from "react-native";
 
+
 export default function Depart1({navigation, route}) {
   const {height, width, scale, fontScale} = useWindowDimensions();
   let withArr = route.params.with;
@@ -41,18 +42,29 @@ export default function Depart1({navigation, route}) {
         </Text>
 
         <View style={[styles.players, styles.line]}>
-          <View style={styles.playersTitle}>
-            <View>
-                <Text style={[styles.bold]}>
-                  Partenaires
-                </Text>
-                <Text style={[styles.thin]}>
-                  Jusqu'à 4 joueurs
-                </Text>
+          
+        {route.params.type == 'Cours' ?     
+        
+            <View style={styles.playersTitle}>
+                  <Text style={[styles.bold]}>
+                    Professeur
+                  </Text>
             </View>
-            <Text style={styles.addPlayer}>Ajouter un joueur</Text>
-          </View>
-
+            
+              :     
+            
+            <View style={styles.playersTitle}>
+              <View>
+                  <Text style={[styles.bold]}>
+                    Partenaires
+                  </Text>
+                  <Text style={[styles.thin]}>
+                    Jusqu'à 4 joueurs
+                  </Text>
+              </View>
+              <Text style={styles.addPlayer}>Ajouter un joueur</Text>
+            </View>
+          }
 
             {withArr.map((person) => {
               const test = `../../assets/Booking/Resa/Persons/` + `${person}` + `.jpg`;

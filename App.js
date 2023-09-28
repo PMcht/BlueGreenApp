@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Actus from './pages/Actus';
-import Departs from './pages/Departs';
 import Parcours from './pages/Parcours';
 import Profile from './pages/Profile';
 import Home from './pages/Home';

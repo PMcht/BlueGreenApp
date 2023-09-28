@@ -1,12 +1,17 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react'
 import { Animated, FlatList, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native'
+import { Shadow } from 'react-native-shadow-2';
 
 
 
 const slides = [
   {
       id: '1',
-      inside: <Text>1</Text>
+      inside: 
+      <Text>
+         TTT
+      </Text>
   },
   {
       id: '2',
@@ -40,12 +45,12 @@ export const DepartResa = () => {
   }
 
   return (
-    <View style={{flex: 3}}>
+    <View style={{flex: 3, backgroundColor: "#fff"}}>
       <FlatList
         data={slides}
         renderItem={({ item }) => <View style={{width}}>{item.inside}</View>}
         horizontal
-        showsHorizontalScrollIndicator
+        showsHorizontalScrollIndicator = {false}
         pagingEnabled
         bounces={false}
         keyExtractor={(item) => item.id}
@@ -53,8 +58,10 @@ export const DepartResa = () => {
         ref={slidesRef}
         />
 
-        <TouchableOpacity onPress={scrollTo}>
-          <Text>Button</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={scrollTo}>
+            <Shadow style={styles.iconShadow}>
+              <MaterialCommunityIcons style={styles.icon} name={'chevron-right'} />
+            </Shadow>
         </TouchableOpacity>
     </View>
   )
@@ -79,6 +86,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     backgroundColor: "green"
+  },
+  buttonContainer:{
+    display: "flex",
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 70
+  },
+  icon:{
+    backgroundColor: '#2ba9bc',
+    height: 50,
+    width: 50,
+    padding: 10,
+    fontSize: 30,
+    borderRadius: 50,
+    color: '#fff'
+  },
+  iconShadow: {
+    display: "flex",
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
   }
 
 })
