@@ -1,52 +1,11 @@
 import React, { Component, useState } from "react";
 import { Button, View, Text, SafeAreaView, ScrollView, StyleSheet, TextInput, useWindowDimensions, TouchableOpacity, Image, Easing } from "react-native";
-import Header from "../components/Header";
 import { GolfAttributes } from "../utils/Lists/Golfs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import GameSetup from "./Parcours/GameSetup";
-import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
-const Stack = createStackNavigator();
 
-const config = {
-  animation: 'timing',
-  config: {
-    duration: 200,
-    easing: Easing.linear,
-  }
-}
-
-export default function Parcours() {
-  return (
-
-    <Stack.Navigator initialRouteName={ParcoursHome} screenOptions={{gestureEnabled:true, gestureDirection:"horizontal"}}>
-      <Stack.Screen
-        name="ParcoursHome"
-        component={ParcoursHome}
-        options={{
-          headerShown:false,
-        }}
-      />
-      <Stack.Screen
-        name="GameSetup"
-        component={GameSetup}
-        options={{
-          headerShown:false,
-          transitionSpec: {
-            open: config,
-            close: config
-          },
-          headerTitle:"Ma Réservation",
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
-
-    </Stack.Navigator>
-    
-  );
-}
-
-export function ParcoursHome({navigation}) {
+export function GolfList( {route, navigation, setGolf	}) {
   
   const {height, width, scale, fontScale} = useWindowDimensions();
   const [searchName, setSearchName] = useState("");
@@ -56,13 +15,10 @@ export function ParcoursHome({navigation}) {
 
 
   return (
-    <SafeAreaView >
 
-        <Header />
 
-        <ScrollView >
-
-          <View style={[styles.container, {minHeight: height}]}>
+    
+          <ScrollView style={[styles.container, {minHeight: height}]}>
 
               <View style={styles.searchBar}>
               <MaterialCommunityIcons style={styles.searchIcon} name={"magnify"} />
@@ -79,14 +35,23 @@ export function ParcoursHome({navigation}) {
                     {GolfFiltered.map((golf) => {
                       return (
                           
-                          <TouchableOpacity key={golf.id} style={styles.card} onPress={() => navigation.navigate("GameSetup", {golfID:golf.id})}>
+                          <TouchableOpacity key={golf.id} style={styles.card} 
+                          onPress={() => {route.params.setGolf(`${golf.name}`); navigation.goBack()}}
+                          >
 
                                 <Image
                                     style={styles.golfIMG}
                                     source={golf.img}
-                                    resizeMode="center"
+                                    resizeMode="cover"
                                   />
-                                <Text style={styles.golfName}>{golf.name}</Text>
+                                  <View style={styles.cardTxt}>
+                                      <Text style={styles.golfName}>{golf.name}</Text>
+                                      <Text style={styles.golfAddr}>{golf.region}</Text>
+                                      <View style={styles.stars}>
+                                          <MaterialCommunityIcons style={styles.starIcon} name={'star'} />
+                                          <Text style={styles.rate}>4.5/5</Text>
+                                      </View>
+                                  </View>
                               
                           </TouchableOpacity>
 
@@ -96,10 +61,7 @@ export function ParcoursHome({navigation}) {
                     )}
                     
 
-          </View>
-
-        </ScrollView>
-    </SafeAreaView>
+          </ScrollView>
   );
 }
 
@@ -129,26 +91,59 @@ const styles = StyleSheet.create({
   },
   cardContainer:{
     marginTop: 20,
-      display: 'flex',
-      justifyContent: "center",
-      alignItems: 'center',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: 15
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   card:{
-    width: '45%',
-    height: 150,
-    borderRadius: 10,
+    width: '100%',
+    height: 130,
+    borderColor: "#e9ebf0",
+    borderTopWidth: 1,
+    paddingVertical: 20,
+    paddingHorizontal:30,
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   golfIMG:{
-    height: "80%",
-    width: '100%',
-    borderRadius: 20
+    height: 90,
+    width: 70,
+    borderRadius: 10,
+    marginRight: 10,
   },
-  golfName:{
-    textAlign: 'center',
-    fontSize: 15,
+  cardTxt: {
+    height: 90,
+    width: '70%',
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'flex-start',
+  },
+  golfName: {
+    fontSize: 18,
     fontWeight: 'bold'
+  },
+  golfAddr: {
+    fontStyle: 'italic'
+  },
+  stars: {
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 5
+  },
+  starIcon: {
+    color: "#fca741",
+    fontSize: 18,
+    marginHorizontal: 5
+  },
+  rate: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    color: 'grey'
   }
 })

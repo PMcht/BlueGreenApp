@@ -1,10 +1,10 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React, { Component } from "react";
 import { StyleSheet, Button, View, Text, Image, SafeAreaView } from "react-native";
-import BlueGreenActu from "./Actus/BlueGreenActu";
-import FriendsActu from "./Actus/FriendsActu";
-import MyGolfActu from "./Actus/MyGolfActu";
-import Header from "../components/Header";
+import BlueGreenActu from "./BlueGreenActu";
+import FriendsActu from "./FriendsActu";
+import MyGolfActu from "./MyGolfActu";
+import Header from "../../components/Header";
 
 export default function Actus() {
 

@@ -2,11 +2,11 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View, useWindowDimensions } 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Actus from './pages/Actus';
-import Parcours from './pages/Parcours';
-import Profile from './pages/Profile';
-import Home from './pages/Home';
-import Proshop from './pages/Proshop';
+import Home from './pages/Home/Home';
+import Actus from './pages/Actus/Actus';
+import Parcours from './pages/Parcours/Parcours';
+import Proshop from './pages/Proshop/Proshop';
+import Profile from './pages/Profile/Profile';
 
 
 
