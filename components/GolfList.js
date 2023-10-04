@@ -36,7 +36,7 @@ export function GolfList( {route, navigation, setGolf	}) {
                       return (
                           
                           <TouchableOpacity key={golf.id} style={styles.card} 
-                          onPress={() => {route.params.setGolf(`${golf.name}`); navigation.goBack()}}
+                          onPress={() => {route.params.setGolf(golf.name); navigation.goBack()}}
                           >
 
                                 <Image

@@ -2,11 +2,11 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View, useWindowDimensions } 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Home from './pages/Home/Home';
-import Actus from './pages/Actus/Actus';
-import Parcours from './pages/Parcours/Parcours';
-import Proshop from './pages/Proshop/Proshop';
-import Profile from './pages/Profile/Profile';
+import Home from './pages/Home';
+import Actus from './pages/Actus';
+import Parcours from './pages/Parcours';
+import Proshop from './pages/Proshop';
+import Profile from './pages/Profile';
 
 
 
@@ -40,7 +40,7 @@ export default function App() {
                     <MaterialCommunityIcons name="golf-tee" color={color} style={styles.middle} size={size}  />
                   ),
                 }} />
-              <Tab.Screen name="Mes DépartsProshop" component={Proshop} options={{
+              <Tab.Screen name="Proshop" component={Proshop} options={{
                   tabBarLabel: 'Proshop',
                   tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="shopping" color={color} size={size} />
