@@ -1,11 +1,14 @@
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Button, View, Text, stylesheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, View, Text, stylesheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase, StyleSheet, TouchableOpacity, LogBox } from "react-native";
 import { persons } from "../../utils/json/persons";
 import { Dropdown, SelectCountry } from "react-native-element-dropdown";
 import { useEffect, useState } from "react";
 import { departsList } from "../../utils/json/departsList";
-import { GolfList } from "../../components/GolfList";
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 
 export default function Depart1({navigation, route}) {
@@ -13,11 +16,13 @@ export default function Depart1({navigation, route}) {
 
   const golfFocus = departsList[route.params.id];
   const [players, setPlayers] = useState(golfFocus.with)
-  let personID = persons.filter(({name}) => players.includes(name))
+  let personToMap = persons.filter(({name}) => players.includes(name))
 
   return (
     <ScrollView style={styles.scrollView}>
     <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20, backgroundColor: "#fff"}}>
+
+      
 
         <View style={[styles.course, styles.line]}>
             <Text style={[styles.bold, {marginBottom: 20}]}>
@@ -70,14 +75,14 @@ export default function Depart1({navigation, route}) {
                     Jusqu'à 4 joueurs
                   </Text>
               </View>
-              {personID.length == 3 ? <></> : 
-              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {setPlayers, players, golfFocus})}><Text>Ajouter un joueur</Text></TouchableOpacity>
+              {players.length == 3 ? <></> : 
+              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {golfFocus, setPlayers, players})}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>
           }
 
-            {personID.map((person) => {
+            {personToMap.map((person) => {
        
               return (
                 <View key={person.id} style={[styles.flex, styles.person]}>
@@ -108,9 +113,8 @@ export default function Depart1({navigation, route}) {
                         imageField="img"
                         placeholder=''
                         onChange={item => {
-                          let index = golfFocus.with.indexOf(person.name)
-                          golfFocus.with.splice(index, 1)
-                          setPlayers(players.filter(item => item.name !== person.name))
+                          setPlayers(players.filter(item => item !== person.name))
+                          golfFocus.with = players.filter(item => item !== person.name)
                         }}
                         renderRightIcon={() => (
                           <MaterialCommunityIcons name="dots-vertical" style={styles.more} />
@@ -126,7 +130,7 @@ export default function Depart1({navigation, route}) {
 
             <Pressable onPress={() => console.log(players)} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
             <Text>ou</Text>
-            <Pressable onPress={() => console.log(golfFocus)} style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
+            <Pressable onPress={() => console.log(golfFocus.with)} style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
 
         </View>
 
@@ -137,13 +141,13 @@ export default function Depart1({navigation, route}) {
 
 
 export function ChoosePlayers({ route, navigation }) {
-  const golfFocus = route.params.golfFocus.with
+  const golfFocus = route.params.golfFocus
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {persons.map((person) => {
+      {persons.filter(({name}) => !route.params.players.includes(name)).map((person) => {
        
           return (
-            <TouchableOpacity onPress={() => {route.params.setPlayers(current => [...current, person.name]); golfFocus.push(person.name); navigation.goBack()} } key={person.id} style={[styles.flex, styles.person]}>
+            <TouchableOpacity onPress={() => {golfFocus.with.push(person.name); route.params.setPlayers([...route.params.players, person.name]); navigation.goBack()} } key={person.id} style={[styles.flex, styles.person]}>
                   <Image
                     style={styles.profilePic}
                     source={person.img}
