@@ -1,10 +1,10 @@
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, View, Text, stylesheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase, StyleSheet, TouchableOpacity, LogBox } from "react-native";
-import { persons } from "../../utils/json/persons";
+import { persons } from "../utils/json/persons";
 import { Dropdown, SelectCountry } from "react-native-element-dropdown";
 import { useEffect, useState } from "react";
-import { departsList } from "../../utils/json/departsList";
+import { departsList } from "../utils/json/departsList";
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -18,11 +18,12 @@ export default function Depart1({navigation, route}) {
   const [players, setPlayers] = useState(golfFocus.with)
   let personToMap = persons.filter(({name}) => players.includes(name))
 
+  const index = departsList.indexOf(golfFocus)
+
   return (
     <ScrollView style={styles.scrollView}>
     <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20, backgroundColor: "#fff"}}>
 
-      
 
         <View style={[styles.course, styles.line]}>
             <Text style={[styles.bold, {marginBottom: 20}]}>
@@ -128,43 +129,14 @@ export default function Depart1({navigation, route}) {
 
         <View style={styles.modif}>
 
-            <Pressable onPress={() => console.log(players)} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
+            <Pressable onPress={() => {}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
             <Text>ou</Text>
-            <Pressable onPress={() => console.log(golfFocus.with)} style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
+            <Pressable onPress={() => {departsList.splice(index, 1), navigation.goBack()}} style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
 
         </View>
 
     </View>
     </ScrollView>
-  );
-}
-
-
-export function ChoosePlayers({ route, navigation }) {
-  const golfFocus = route.params.golfFocus
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {persons.filter(({name}) => !route.params.players.includes(name)).map((person) => {
-       
-          return (
-            <TouchableOpacity onPress={() => {golfFocus.with.push(person.name); route.params.setPlayers([...route.params.players, person.name]); navigation.goBack()} } key={person.id} style={[styles.flex, styles.person]}>
-                  <Image
-                    style={styles.profilePic}
-                    source={person.img}
-                    resizeMode="cover"
-                  />
-                  
-                  <View>
-                    <Text style={styles.bold}>{person.name}</Text>
-                    <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
-                      <Text style={styles.index}>Jaune</Text>
-                      <Text style={styles.handicap}>Index: {person.index}</Text>
-                    </View>
-                  </View>
-            </TouchableOpacity>
-          )
-        })}
-    </View>
   );
 }
 

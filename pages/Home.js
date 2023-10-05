@@ -3,14 +3,15 @@ import { TransitionSpecs, createStackNavigator, HeaderStyleInterpolators, CardSt
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react'
 import Header from '../components/Header';
-import Depart1, { ChoosePlayers } from './Home/Depart1';
-import { DepartResa } from './Home/DepartResa';
 import { CoursResa } from './Home/CoursResa';
 import { PracticeResa } from './Home/PracticeResa';
 import { CompetResa } from './Home/CompetResa';
 import { departsList } from '../utils/json/departsList';
 import { Shadow } from 'react-native-shadow-2';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Depart1 from '../components/Depart1';
+import Depart from './Home/DepartResa';
+import { ChoosePlayers } from '../components/ChoosePlayers';
 
 
 const Stack = createStackNavigator();
@@ -80,7 +81,7 @@ export default function Home() {
       />
       <Stack.Screen
         name="DepartResa"
-        component={DepartResa}
+        component={Depart}
         gestureEnabled={false}
         options={{
           headerShown:true,
@@ -214,15 +215,15 @@ export function HomeNext({navigation}) {
                       data={departsList}
                       renderItem={({ item }) => 
                       
-                        <TouchableOpacity activeOpacity={1} style={[Styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('Depart1', {id:item.id})}>
+                        <TouchableOpacity activeOpacity={.9} style={[Styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('Depart1', {id:departsList.indexOf(item)})}>
                             <Image
                               style={Styles.bgEvent}
                               source={item.golfIMG}
                               resizeMode='cover'
                             />
                             <LinearGradient style={Styles.bgLinear} colors={['rgba(19, 19, 20, 0)', 'rgba(19, 19, 20, 0.6)', 'rgba(19, 19, 20, 0.8)']}>
-                                <View>
-                                    <Text style={Styles.boldNext}>Golf de {item.golfName}</Text>
+                                <View style={Styles.names}>
+                                    <Text style={Styles.boldNext}>{item.golfName.length >= 12 ? item.golfName : `Golf de ${item.golfName}`} </Text>
                                     <Text style={Styles.thinNext}>{item.type} à {item.hour}</Text>
                                 </View>
                                 <Text style={Styles.button}>Plus d'infos</Text>
@@ -386,6 +387,9 @@ const Styles = StyleSheet.create({
   thinNext: {
     color: "#fff",
     fontStyle: 'italic'
+  },
+  names:{
+    maxWidth: 190
   },
   button:{
     backgroundColor: "#2ba9bc",

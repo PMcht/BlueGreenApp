@@ -2,7 +2,7 @@ export const GolfAttributes = [
     {
         id: 0,
         region: 'Auvergne-Rhône-Alpes',
-        name: 'Grand Lyon Chassieu',
+        name: 'Lyon Chassieu',
         img: require('../../assets/Bluegreen/Golfs/0.webp'),
     },
     {
@@ -44,7 +44,7 @@ export const GolfAttributes = [
     {
         id: 7,
         region: 'Bretagne',
-        name: 'Lac au Duc Ploërmel',
+        name: 'Lac au Duc',
         img: require('../../assets/Bluegreen/Golfs/7.webp'),
     },
     {
@@ -80,13 +80,13 @@ export const GolfAttributes = [
     {
         id: 13,
         region: 'Bretagne',
-        name: 'Rennes Saint-Jacques',
+        name: 'Rennes',
         img: require('../../assets/Bluegreen/Golfs/13.webp'),
     },
     {
         id: 14,
         region: 'Bretagne',
-        name: 'Saint-Laurent',
+        name: 'Saint Laurent',
         img: require('../../assets/Bluegreen/Golfs/14.webp'),
     },
     {
@@ -128,7 +128,7 @@ export const GolfAttributes = [
     {
         id: 21,
         region: 'Ile de France',
-        name: 'Saint-Aubin',
+        name: 'Saint Aubin',
         img: require('../../assets/Bluegreen/Golfs/21.webp'),
     },
     {
