@@ -23,7 +23,7 @@ const config = {
 export default function Depart() {
 
     // Localisation
-    const [golf, setGolf] = useState('Rennes')
+    const [golf, setGolf] = useState('')
 
     //Players
     const [players, setPlayers] = useState('')
@@ -214,7 +214,7 @@ export function DepartHome({navigation, route, golf, players, setPlayers}) {
 
             <Pressable onPress={() => {pushNewDepart(); navigation.goBack()}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Valider</Text></Pressable>
             <Text>ou</Text>
-            <Pressable onPress={() => {console.log(players)}} style={[styles.buttons]} ><Text>Retour à l'accueil</Text></Pressable>
+            <Pressable onPress={() => {navigation.goBack()}} style={[styles.buttons]} ><Text>Retour à l'accueil</Text></Pressable>
 
         </View>
 

@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { GolfList } from "../components/GolfList";
 import { persons } from "../utils/json/persons";
 import { ChoosePlayers } from "../components/ChoosePlayers";
+import { SelectCountry } from "react-native-element-dropdown";
 
 const Stack = createStackNavigator();
 
@@ -79,7 +80,7 @@ export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
   const {height, width, scale, fontScale} = useWindowDimensions();
   let golfID = GolfAttributes.filter(({name}) => golf.includes(name))
 
-  let personID = persons.filter(({name}) => players.includes(name))
+  let personToMap = persons.filter(({name}) => players.includes(name))
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -134,47 +135,58 @@ export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
                     Jusqu'à 4 joueurs
                   </Text>
               </View>
-              {personID.length == 3 ? <></> : 
+              {personToMap.length == 3 ? <></> : 
                 <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>
           
-            {['Aymeric', 'Valentin', 'Ben'].map((person) => {
-              const data = `../assets/Booking/Resa/Persons/` + `${person}` + `.jpg`;
-              var imageMap = {
-                'Valentin' : require('../assets/Booking/Resa/Persons/Valentin.jpg'),
-                'Aymeric' : require('../assets/Booking/Resa/Persons/Aymeric.jpg'),
-                'Corentin' : require('../assets/Booking/Resa/Persons/Corentin.jpg'),
-                'Ben' : require('../assets/Booking/Resa/Persons/Ben.jpg'),
-                'Arnaud' : require('../assets/Booking/Resa/Persons/Arnaud.jpg'),
-              }
-              return (
-                <View key={person} style={[styles.flex, styles.person]}>
-                  <Image
-                    style={styles.profilePic}
-                    source={imageMap[person]}
-                    resizeMode="cover"
-                  />
-                  <View>
-                    <Text style={styles.bold}>{person}</Text>
-                    <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
-                      <Text style={styles.index}>Jaune</Text>
-                      <Text style={styles.handicap}> index: 20</Text>
-                    </View>
+            {personToMap.map((person) => {
+       
+                return (
+                  <View key={person.id} style={[styles.flex, styles.person]}>
+                    <Image
+                      style={styles.profilePic}
+                      source={person.img}
+                      resizeMode="cover"
+                    />
                     
+                    <View>
+                      <Text style={styles.bold}>{person.name}</Text>
+                      <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
+                        <Text style={styles.index}>Jaune</Text>
+                        <Text style={styles.handicap}>Index: {person.index}</Text>
+                      </View>
+                    </View>
+                        <SelectCountry
+                          style={styles.dropdown}
+                          selectedTextStyle={styles.selectedTextStyle}
+                          placeholderStyle={styles.placeholderStyle}
+                          imageStyle={styles.imageStyle}
+                          inputSearchStyle={styles.inputSearchStyle}
+                          iconStyle={styles.iconStyle}
+                          maxHeight={200}
+                          data={[{id:"1", name:'Désinscrire'}]}
+                          valueField="id"
+                          labelField="name"
+                          imageField="img"
+                          placeholder=''
+                          onChange={item => {
+                              setPlayers(players.filter(item => item !== person.name))
+                          }}
+                          renderRightIcon={() => (
+                            <MaterialCommunityIcons name="dots-vertical" style={styles.more} />
+                            )}
+                      />
                   </View>
-                  <MaterialCommunityIcons name="dots-vertical" style={styles.more} />
-
-                </View>
-              )
-            })}
+                )
+              })}
 
         </View>
 
         <View style={styles.modif}>
 
-            <Pressable onPress={console.log(golfID)} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Commencer</Text></Pressable>
+            <Pressable onPress={() => {}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Commencer</Text></Pressable>
 
         </View>
 
@@ -184,7 +196,11 @@ export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
 }
 
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
+  dropdown: {
+    height: 50,
+    width: "40%"
+  },
   bold: {
     fontWeight: "bold",
     fontSize: 20,
@@ -282,4 +298,3 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   }
 });
-

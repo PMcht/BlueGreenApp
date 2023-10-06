@@ -9,9 +9,8 @@ import { CompetResa } from './Home/CompetResa';
 import { departsList } from '../utils/json/departsList';
 import { Shadow } from 'react-native-shadow-2';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Depart1 from '../components/Depart1';
 import Depart from './Home/DepartResa';
-import { ChoosePlayers } from '../components/ChoosePlayers';
+import DepartSummary from '../components/DepartSummary';
 
 
 const Stack = createStackNavigator();
@@ -67,8 +66,8 @@ export default function Home() {
         }}
       />
       <Stack.Screen
-        name="Depart1"
-        component={Depart1}
+        name="DepartSum"
+        component={DepartSummary}
         options={{
           headerShown:true,
           transitionSpec: {
@@ -202,7 +201,7 @@ export function HomeNext({navigation}) {
                       data={departsList}
                       renderItem={({ item }) => 
                       
-                        <TouchableOpacity activeOpacity={.9} style={[Styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('Depart1', {id:departsList.indexOf(item)})}>
+                        <TouchableOpacity activeOpacity={.9} style={[Styles.event, {width: (320), marginHorizontal: (10)}]} key={item.id} onPress={() => navigation.navigate('DepartSum', {id:departsList.indexOf(item)})}>
                             <Image
                               style={Styles.bgEvent}
                               source={item.golfIMG}

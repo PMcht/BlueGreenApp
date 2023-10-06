@@ -1,21 +1,77 @@
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Button, View, Text, stylesheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase, StyleSheet, TouchableOpacity, LogBox } from "react-native";
+import { Button, View, Text, stylesheet, Image, ScrollView, SafeAreaView, useWindowDimensions, Pressable, SafeAreaViewBase, StyleSheet, TouchableOpacity, LogBox, Easing } from "react-native";
 import { persons } from "../utils/json/persons";
 import { Dropdown, SelectCountry } from "react-native-element-dropdown";
 import { useEffect, useState } from "react";
 import { departsList } from "../utils/json/departsList";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
+import { ChoosePlayers } from "./ChoosePlayers";
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
 
+const Stack = createStackNavigator();
 
-export default function Depart1({navigation, route}) {
-  const {height, width, scale, fontScale} = useWindowDimensions();
+const config = {
+  animation: 'timing',
+  config: {
+    duration: 200,
+    easing: Easing.linear,
+  }
+}
+
+export default function DepartSummary({navigation, route}) {
 
   const golfFocus = departsList[route.params.id];
-  const [players, setPlayers] = useState(golfFocus.with)
+
+    // Localisation
+    const [golf, setGolf] = useState('')
+
+    //Players
+    const [players, setPlayers] = useState(golfFocus.with)
+
+  return (
+
+    <Stack.Navigator initialRouteName={DepartSums} screenOptions={{gestureEnabled:true, gestureDirection:"horizontal"}}>
+      <Stack.Screen
+        name="DepartSumss"
+        options={{
+          headerShown:false,
+        }}
+      >
+        {(props) => (
+          <DepartSums golf={golf} setPlayers={setPlayers} players={players} golfFocus={golfFocus} {...props}/>
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen
+        name="ChoosePlayer"
+        options={{
+          headerShown:false,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
+        {(props) => (
+          <ChoosePlayers setPlayers={setPlayers} players={players} {...props}/>
+        )}
+      </Stack.Screen>
+          
+    </Stack.Navigator>
+    
+  );
+}
+
+
+export function DepartSums({navigation, route, golfFocus, players, setPlayers}) {
+  const {height, width, scale, fontScale} = useWindowDimensions();
+
+  // const golfFocus = departsList[route.params.id];
   let personToMap = persons.filter(({name}) => players.includes(name))
 
   const index = departsList.indexOf(golfFocus)
@@ -77,7 +133,7 @@ export default function Depart1({navigation, route}) {
                   </Text>
               </View>
               {players.length == 3 ? <></> : 
-              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {golfFocus, setPlayers, players})}><Text>Ajouter un joueur</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {golfFocus})}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>
