@@ -24,7 +24,7 @@ const config = {
 
 export default function DepartSummary({navigation, route}) {
 
-  const golfFocus = departsList[route.params.id];
+    const golfFocus = departsList[route.params.id];
 
     // Localisation
     const [golf, setGolf] = useState('')
@@ -132,8 +132,8 @@ export function DepartSums({navigation, route, golfFocus, players, setPlayers}) 
                     Jusqu'à 4 joueurs
                   </Text>
               </View>
-              {players.length == 3 ? <></> : 
-              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {golfFocus})}><Text>Ajouter un joueur</Text></TouchableOpacity>
+              {players.length >= 3 ? <></> : 
+              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>

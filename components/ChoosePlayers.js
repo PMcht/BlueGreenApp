@@ -2,14 +2,13 @@ import { Button, View, Text, SafeAreaView, ScrollView, StyleSheet, TextInput, us
 import { persons } from "../utils/json/persons";
 
 export function ChoosePlayers({ route, navigation, setPlayers, players }) {
-    const golfFocus = route.params.golfFocus
+  
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {persons.filter(({name}) => !players.includes(name)).map((person) => {
          
             return (
               <TouchableOpacity onPress={() => {
-                {golfFocus == undefined ? {} : golfFocus.with.push(person.name);} 
                 setPlayers([...players, person.name]); 
                 navigation.goBack()} } 
                 key={person.id} style={[styles.flex, styles.person]}>
