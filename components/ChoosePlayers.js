@@ -2,10 +2,16 @@ import { Button, View, Text, SafeAreaView, ScrollView, StyleSheet, TextInput, us
 import { persons } from "../utils/json/persons";
 
 export function ChoosePlayers({ route, navigation, setPlayers, players }) {
-  
+
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {persons.filter(({name}) => !players.includes(name)).map((person) => {
+
+
+        {persons.filter(element => {
+            return !players.includes(element.name) && element.type == 'Friends'
+          }).map((person) => {
+
          
             return (
               <TouchableOpacity onPress={() => {

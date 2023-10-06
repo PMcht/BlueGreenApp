@@ -83,115 +83,120 @@ export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
   let personToMap = persons.filter(({name}) => players.includes(name))
 
   return (
-    <ScrollView style={styles.scrollView}>
-    <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20, backgroundColor: "#fff"}}>
+    <SafeAreaView >
 
-        <View style={[styles.course, styles.line]}>
-            <Text style={[styles.bold, {marginBottom: 20}]}>
-              Localisation
-            </Text>
+      <Header />
+
+        <ScrollView style={styles.scrollView}>
+        <View style={{height: height-100, width: width, paddingVertical: 30, paddingHorizontal: 20, backgroundColor: "#fff"}}>
+
+            <View style={[styles.course, styles.line]}>
+                <Text style={[styles.bold, {marginBottom: 20}]}>
+                  Localisation
+                </Text>
 
 
-            {golf == '' ? 
+                {golf == '' ? 
 
-                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
-                      <Text>test</Text>
-                  </TouchableOpacity>
-                
-                  :     
-
-                  <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfListt')}>
-
-                    <Image
-                        style={styles.img}
-                        source={golfID[0].img}
-                        resizeMode="cover"
-                      />
-
-                    <View style={styles.info}>
-                      <Text style={styles.bold}>Golf de {golfID[0].name}</Text>
-                      <Text style={[styles.thin, {marginTop: 10}]}>{golfID[0].region}</Text>
-                      <View style={[styles.flex, {marginTop: 10}]}>
-                        <Text style={styles.space}>Handicap <Text style={styles.param}>22</Text></Text>
-                        <Text style={styles.space}>Par <Text style={styles.param}>22</Text></Text>
-                        <Text >Slope <Text style={styles.param}>22</Text></Text>
-                      </View>
-                    </View>
-
-                  </TouchableOpacity>
-              }
-
-        </View>
-
-        <View style={[styles.players, styles.line]}>
-           
-            
-            <View style={styles.playersTitle}>
-              <View>
-                  <Text style={[styles.bold]}>
-                    Partenaires
-                  </Text>
-                  <Text style={[styles.thin]}>
-                    Jusqu'à 4 joueurs
-                  </Text>
-              </View>
-              {personToMap.length == 3 ? <></> : 
-                <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
-              }
-              
-            </View>
-          
-            {personToMap.map((person) => {
-       
-                return (
-                  <View key={person.id} style={[styles.flex, styles.person]}>
-                    <Image
-                      style={styles.profilePic}
-                      source={person.img}
-                      resizeMode="cover"
-                    />
+                      <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
+                          <Text>test</Text>
+                      </TouchableOpacity>
                     
-                    <View>
-                      <Text style={styles.bold}>{person.name}</Text>
-                      <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
-                        <Text style={styles.index}>Jaune</Text>
-                        <Text style={styles.handicap}>Index: {person.index}</Text>
-                      </View>
-                    </View>
-                        <SelectCountry
-                          style={styles.dropdown}
-                          selectedTextStyle={styles.selectedTextStyle}
-                          placeholderStyle={styles.placeholderStyle}
-                          imageStyle={styles.imageStyle}
-                          inputSearchStyle={styles.inputSearchStyle}
-                          iconStyle={styles.iconStyle}
-                          maxHeight={200}
-                          data={[{id:"1", name:'Désinscrire'}]}
-                          valueField="id"
-                          labelField="name"
-                          imageField="img"
-                          placeholder=''
-                          onChange={item => {
-                              setPlayers(players.filter(item => item !== person.name))
-                          }}
-                          renderRightIcon={() => (
-                            <MaterialCommunityIcons name="dots-vertical" style={styles.more} />
-                            )}
-                      />
+                      :     
+
+                      <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfListt')}>
+
+                        <Image
+                            style={styles.img}
+                            source={golfID[0].img}
+                            resizeMode="cover"
+                          />
+
+                        <View style={styles.info}>
+                          <Text style={styles.bold}>Golf de {golfID[0].name}</Text>
+                          <Text style={[styles.thin, {marginTop: 10}]}>{golfID[0].region}</Text>
+                          <View style={[styles.flex, {marginTop: 10}]}>
+                            <Text style={styles.space}>Handicap <Text style={styles.param}>22</Text></Text>
+                            <Text style={styles.space}>Par <Text style={styles.param}>22</Text></Text>
+                            <Text >Slope <Text style={styles.param}>22</Text></Text>
+                          </View>
+                        </View>
+
+                      </TouchableOpacity>
+                  }
+
+            </View>
+
+            <View style={[styles.players, styles.line]}>
+              
+                
+                <View style={styles.playersTitle}>
+                  <View>
+                      <Text style={[styles.bold]}>
+                        Partenaires
+                      </Text>
+                      <Text style={[styles.thin]}>
+                        Jusqu'à 4 joueurs
+                      </Text>
                   </View>
-                )
-              })}
+                  {personToMap.length == 3 ? <></> : 
+                    <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
+                  }
+                  
+                </View>
+              
+                {personToMap.map((person) => {
+          
+                    return (
+                      <View key={person.id} style={[styles.flex, styles.person]}>
+                        <Image
+                          style={styles.profilePic}
+                          source={person.img}
+                          resizeMode="cover"
+                        />
+                        
+                        <View>
+                          <Text style={styles.bold}>{person.name}</Text>
+                          <View style={[styles.flex, {alignItems: "center", marginTop: 5}]}>
+                            <Text style={styles.index}>Jaune</Text>
+                            <Text style={styles.handicap}>Index: {person.index}</Text>
+                          </View>
+                        </View>
+                            <SelectCountry
+                              style={styles.dropdown}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              placeholderStyle={styles.placeholderStyle}
+                              imageStyle={styles.imageStyle}
+                              inputSearchStyle={styles.inputSearchStyle}
+                              iconStyle={styles.iconStyle}
+                              maxHeight={200}
+                              data={[{id:"1", name:'Désinscrire'}]}
+                              valueField="id"
+                              labelField="name"
+                              imageField="img"
+                              placeholder=''
+                              onChange={item => {
+                                  setPlayers(players.filter(item => item !== person.name))
+                              }}
+                              renderRightIcon={() => (
+                                <MaterialCommunityIcons name="dots-vertical" style={styles.more} />
+                                )}
+                          />
+                      </View>
+                    )
+                  })}
+
+            </View>
+
+            <View style={styles.modif}>
+
+                <Pressable onPress={() => {}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Commencer</Text></Pressable>
+
+            </View>
 
         </View>
-
-        <View style={styles.modif}>
-
-            <Pressable onPress={() => {}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]} ><Text style={[styles.bold, {color: "#fff"}]}>Commencer</Text></Pressable>
-
-        </View>
-
-    </View>
-    </ScrollView>
+        </ScrollView>
+    </SafeAreaView>
 )
 }
 
