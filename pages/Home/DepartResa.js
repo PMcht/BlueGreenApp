@@ -8,6 +8,7 @@ import { persons } from "../../utils/json/persons";
 import { departsList } from "../../utils/json/departsList";
 import { GolfAttributes } from "../../utils/Lists/Golfs";
 import { SelectCountry } from "react-native-element-dropdown";
+import { ChoosePlayers } from "../../components/ChoosePlayers";
 
 const Stack = createStackNavigator();
 
@@ -20,19 +21,29 @@ const config = {
 }
 
 export default function Depart() {
+
+    // Localisation
+    const [golf, setGolf] = useState('Rennes')
+
+    //Players
+    const [players, setPlayers] = useState('')
+
   return (
 
     <Stack.Navigator initialRouteName={DepartHome} screenOptions={{gestureEnabled:true, gestureDirection:"horizontal"}}>
       <Stack.Screen
-        name="DepartHome"
-        component={DepartHome}
+        name="DepartHomee"
         options={{
           headerShown:false,
         }}
-      />
+      >
+        {(props) => (
+          <DepartHome golf={golf} setPlayers={setPlayers} players={players} {...props}/>
+        )}
+      </Stack.Screen>
+
       <Stack.Screen
-        name="GolfList"
-        component={GolfList}
+        name="GolfListt"
         options={{
           headerShown:false,
           transitionSpec: {
@@ -42,21 +53,39 @@ export default function Depart() {
           headerTitle:"Ma Réservation",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
-      />
+      >
+        {(props) => (
+          <GolfList setGolf={setGolf} {...props}/>
+        )}
+      </Stack.Screen>
 
+      <Stack.Screen
+        name="ChoosePlayer"
+        options={{
+          headerShown:false,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
+        {(props) => (
+          <ChoosePlayers setPlayers={setPlayers} players={players} {...props}/>
+        )}
+      </Stack.Screen>
+          
     </Stack.Navigator>
     
   );
 }
 
-export function DepartHome({navigation, route}) {
+export function DepartHome({navigation, route, golf, players, setPlayers}) {
 
   // Localisation
-  const [golf, setGolf] = useState('')
   let golfID = GolfAttributes.filter(({name}) => golf.includes(name))
 
   //Players
-  const [players, setPlayers] = useState('')
   let personToMap = persons.filter(({name}) => players.includes(name))
 
   //Date
@@ -88,13 +117,13 @@ export function DepartHome({navigation, route}) {
 
             {golf == '' ? 
 
-                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfList',{setGolf})}>
+                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
                       <Text>test</Text>
                   </TouchableOpacity>
                 
                   :     
 
-                  <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfList',{setGolf})}>
+                  <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfListt')}>
 
                     <Image
                         style={styles.img}
@@ -133,7 +162,7 @@ export function DepartHome({navigation, route}) {
                   </Text>
               </View>
               {players.length == 3 ? <></> : 
-              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {setPlayers, players})}><Text>Ajouter un joueur</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>

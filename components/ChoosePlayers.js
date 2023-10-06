@@ -1,16 +1,16 @@
 import { Button, View, Text, SafeAreaView, ScrollView, StyleSheet, TextInput, useWindowDimensions, TouchableOpacity, Image, Easing, Pressable } from "react-native";
 import { persons } from "../utils/json/persons";
 
-export function ChoosePlayers({ route, navigation }) {
-    const golfFocus = route.params.golfFocus
+export function ChoosePlayers({ route, navigation, setPlayers, players }) {
+    // const golfFocus = route.params.golfFocus
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {persons.filter(({name}) => !route.params.players.includes(name)).map((person) => {
+        {persons.filter(({name}) => !players.includes(name)).map((person) => {
          
             return (
               <TouchableOpacity onPress={() => {
-                {golfFocus == undefined ? {} : golfFocus.with.push(person.name);} 
-                route.params.setPlayers([...route.params.players, person.name]); 
+                // {golfFocus == undefined ? {} : golfFocus.with.push(person.name);} 
+                setPlayers([...players, person.name]); 
                 navigation.goBack()} } 
                 key={person.id} style={[styles.flex, styles.person]}>
                     <Image

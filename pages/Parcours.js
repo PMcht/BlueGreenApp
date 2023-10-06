@@ -7,6 +7,7 @@ import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/
 import { LinearGradient } from "expo-linear-gradient";
 import { GolfList } from "../components/GolfList";
 import { persons } from "../utils/json/persons";
+import { ChoosePlayers } from "../components/ChoosePlayers";
 
 const Stack = createStackNavigator();
 
@@ -19,19 +20,26 @@ const config = {
 }
 
 export default function Parcours() {
+
+  const [golf, setGolf] = useState('')
+  const [players, setPlayers] = useState('')
+
   return (
 
     <Stack.Navigator initialRouteName={ParcoursHome} screenOptions={{gestureEnabled:true, gestureDirection:"horizontal"}}>
       <Stack.Screen
-        name="ParcoursHome"
-        component={ParcoursHome}
+        name="ParcoursHomee"
         options={{
           headerShown:false,
         }}
-      />
+      >
+          {(props) => (
+            <ParcoursHome golf={golf} setPlayers={setPlayers} players={players} {...props}/>
+          )}
+      </Stack.Screen>
+      
       <Stack.Screen
-        name="GolfList"
-        component={GolfList}
+        name="GolfListt"
         options={{
           headerShown:false,
           transitionSpec: {
@@ -41,19 +49,36 @@ export default function Parcours() {
           headerTitle:"Ma Réservation",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
-      />
+      >
+        {(props) => (
+          <GolfList setGolf={setGolf} {...props}/>
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name="ChoosePlayer"
+        options={{
+          headerShown:false,
+          transitionSpec: {
+            open: config,
+            close: config
+          },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
+        {(props) => (
+          <ChoosePlayers setPlayers={setPlayers} players={players} {...props}/>
+        )}
+      </Stack.Screen>
 
     </Stack.Navigator>
     
   );
 }
 
-export function ParcoursHome({route, navigation}) {
+export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
   const {height, width, scale, fontScale} = useWindowDimensions();
-  const [golf, setGolf] = useState('')
   let golfID = GolfAttributes.filter(({name}) => golf.includes(name))
 
-  const [players, setPlayers] = useState('')
   let personID = persons.filter(({name}) => players.includes(name))
 
   return (
@@ -68,13 +93,13 @@ export function ParcoursHome({route, navigation}) {
 
             {golf == '' ? 
 
-                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfList',{setGolf})}>
+                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
                       <Text>test</Text>
                   </TouchableOpacity>
                 
                   :     
 
-                  <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfList',{setGolf})}>
+                  <TouchableOpacity style={styles.flex} onPress={() => navigation.navigate('GolfListt')}>
 
                     <Image
                         style={styles.img}
@@ -110,7 +135,7 @@ export function ParcoursHome({route, navigation}) {
                   </Text>
               </View>
               {personID.length == 3 ? <></> : 
-                <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer', {setPlayers, players})}><Text>Ajouter un joueur</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.addPlayer} onPress={() => navigation.navigate('ChoosePlayer')}><Text>Ajouter un joueur</Text></TouchableOpacity>
               }
               
             </View>

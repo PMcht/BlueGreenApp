@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 
-export function GolfList( {route, navigation, setGolf	}) {
+export function GolfList({route, navigation, setGolf}) {
   
   const {height, width, scale, fontScale} = useWindowDimensions();
   const [searchName, setSearchName] = useState("");
@@ -36,7 +36,7 @@ export function GolfList( {route, navigation, setGolf	}) {
                       return (
                           
                           <TouchableOpacity key={golf.id} style={styles.card} 
-                          onPress={() => {route.params.setGolf(golf.name); navigation.goBack()}}
+                          onPress={() => {setGolf(golf.name); navigation.goBack()}}
                           >
 
                                 <Image

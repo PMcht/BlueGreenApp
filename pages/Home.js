@@ -132,19 +132,6 @@ export default function Home() {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
-      <Stack.Screen
-        name="ChoosePlayer"
-        component={ChoosePlayers}
-        options={{
-          headerShown:true,
-          transitionSpec: {
-            open: config,
-            close: config
-          },
-          headerTitle:"S'inscrire à une compétition",
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
     </Stack.Navigator>
     
   );
