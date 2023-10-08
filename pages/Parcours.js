@@ -98,8 +98,8 @@ export function ParcoursHome({route, navigation, golf, players, setPlayers}) {
 
                 {golf == '' ? 
 
-                      <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
-                          <Text>test</Text>
+                      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
+                          <Text style={styles.SelectButton}>Sélectionner un golf</Text>
                       </TouchableOpacity>
                     
                       :     
@@ -209,6 +209,14 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
     fontSize: 20,
+  },
+  SelectButton:{
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderRadius: 5,
+    fontSize: 20
   },
   thin: {
     fontWeight: "400",

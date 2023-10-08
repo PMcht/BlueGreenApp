@@ -185,7 +185,7 @@ export function DepartSums({navigation, route, golfFocus, players, setPlayers}) 
 
         <View style={styles.modif}>
 
-            <Pressable onPress={() => {}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Modifier</Text></Pressable>
+            <Pressable onPress={() => {golfFocus.with = players; navigation.goBack()}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Confirmer</Text></Pressable>
             <Text>ou</Text>
             <Pressable onPress={() => {departsList.splice(index, 1), navigation.goBack()}} style={[styles.buttons]} ><Text>Annuler ma réservation</Text></Pressable>
 

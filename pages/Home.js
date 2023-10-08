@@ -240,7 +240,7 @@ export function HomeNext({navigation}) {
               {slides.map((item) => {
 
                   return (
-                  <Shadow  key={item.id} style={ [Styles.bookingCard] } distance={15} offset={(offsetX || offsetY) ? [offsetX, offsetY] : undefined}>
+                  <View key={item.id} style={ [Styles.bookingCard] } distance={15} offset={(offsetX || offsetY) ? [offsetX, offsetY] : undefined}>
                       <TouchableOpacity style={ [Styles.bookingCardInside] } onPress={() => navigation.navigate(item.link)}>
 
                           <MaterialCommunityIcons style={Styles.Icon} name={item.img} />
@@ -248,7 +248,7 @@ export function HomeNext({navigation}) {
                           <Text style={[Styles.center]}>{item.title}</Text>
                         
                       </TouchableOpacity>
-                  </Shadow>
+                  </View>
                   )
                   })}
 
@@ -396,12 +396,14 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: "wrap",
     columnGap: 30,
-    rowGap: 25
+    rowGap: 15
   },
   bookingCard:{
     width: 160,
     height: 120,
     borderRadius: 10,
+    borderWidth: 5,
+    borderColor: '#fbf9fb',
     display: "flex",
     justifyContent: 'center',
     alignContent: 'center',

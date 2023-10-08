@@ -9,6 +9,7 @@ import { departsList } from "../../utils/json/departsList";
 import { GolfAttributes } from "../../utils/Lists/Golfs";
 import { SelectCountry } from "react-native-element-dropdown";
 import { ChoosePlayers } from "../../components/ChoosePlayers";
+import Calendar from "../../components/DatePicker";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,10 @@ export default function Depart() {
     // Localisation
     const [golf, setGolf] = useState('')
 
-    //Players
+    // Date
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    // Players
     const [players, setPlayers] = useState('')
 
   return (
@@ -38,7 +42,7 @@ export default function Depart() {
         }}
       >
         {(props) => (
-          <DepartHome golf={golf} setPlayers={setPlayers} players={players} {...props}/>
+          <DepartHome golf={golf} setPlayers={setPlayers} players={players} selectedDate={selectedDate} setSelectedDate={setSelectedDate} {...props}/>
         )}
       </Stack.Screen>
 
@@ -80,7 +84,7 @@ export default function Depart() {
   );
 }
 
-export function DepartHome({navigation, route, golf, players, setPlayers}) {
+export function DepartHome({navigation, route, golf, players, setPlayers, selectedDate, setSelectedDate}) {
 
   // Localisation
   let golfID = GolfAttributes.filter(({name}) => golf.includes(name))
@@ -94,7 +98,7 @@ export function DepartHome({navigation, route, golf, players, setPlayers}) {
 
   const {height, width, scale, fontScale} = useWindowDimensions();
   const pushNewDepart = () => { departsList.push({
-    id: 4,
+    id: departsList.length + 1,
     golfName: golfID[0].name,
     golfIMG: golfID[0].img,
     golfAddress: golfID[0].region,
@@ -117,8 +121,8 @@ export function DepartHome({navigation, route, golf, players, setPlayers}) {
 
             {golf == '' ? 
 
-                  <TouchableOpacity style={styles.buttons} activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
-                      <Text>test</Text>
+                  <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('GolfListt')}>
+                      <Text style={styles.SelectButton}>Sélectionner un golf</Text>
                   </TouchableOpacity>
                 
                   :     
@@ -145,10 +149,13 @@ export function DepartHome({navigation, route, golf, players, setPlayers}) {
               }
         </View>
 
-        <Text style={[styles.timing, styles.line]}>
-            Le <Text style={styles.boldTiming}></Text> à <Text style={styles.boldTiming}></Text>
-        </Text>
+        <View style={[styles.timing, styles.line]}>
 
+           <Calendar onSelectDate={setSelectedDate} selected={selectedDate} />
+
+        </View>
+
+        
         <View style={[styles.players, styles.line]}>
           
             
@@ -212,9 +219,14 @@ export function DepartHome({navigation, route, golf, players, setPlayers}) {
 
         <View style={styles.modif}>
 
-            <Pressable onPress={() => {pushNewDepart(); navigation.goBack()}} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Valider</Text></Pressable>
-            <Text>ou</Text>
-            <Pressable onPress={() => {navigation.goBack()}} style={[styles.buttons]} ><Text>Retour à l'accueil</Text></Pressable>
+            <Pressable onPress={() => {
+              if(players == '' || golf == ''){
+                console.log('nope')
+              } else {
+                pushNewDepart();  navigation.goBack()
+              }
+              
+              }} style={[styles.buttons, {backgroundColor: "#2ba9bc"}]}><Text style={[styles.bold, {color: "#fff"}]}>Valider</Text></Pressable>
 
         </View>
 
@@ -242,6 +254,14 @@ const styles = StyleSheet.create({
   flex: {
     display: "flex",
     flexDirection: 'row'
+  },
+  SelectButton:{
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderRadius: 5,
+    fontSize: 20
   },
   line: {
     borderBottomWidth: 1,
